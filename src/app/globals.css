@@ -1,26 +1,129 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: #2563eb;
+  --color-primary-light: #3b82f6;
+  --color-primary-dark: #1d4ed8;
+  --color-accent: #2563eb;
+  --color-surface: #111a2e;
+  --color-surface-light: #1a2340;
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: #0b1120;
+    color: #ffffff;
+    font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.1; transform: scale(1); }
+  50% { opacity: 0.25; transform: scale(1.1); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+/* Dark background pattern */
+.pitch-bg {
+  background-color: #0b1120 !important;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Dark glass card */
+.glass {
+  background: #111a2e !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+}
+
+/* Navbar */
+.nav-blur {
+  background: rgba(11, 17, 32, 0.8) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ===== react-day-picker v9 dark overrides ===== */
+.rdp-root {
+  --rdp-accent-color: #2563eb !important;
+  --rdp-accent-background-color: rgba(37, 99, 235, 0.15) !important;
+  --rdp-day_button-border-radius: 0.5rem !important;
+  --rdp-selected-border: none !important;
+  --rdp-today-color: #2563eb !important;
+  --rdp-outside-opacity: 0.3 !important;
+  color: #e2e8f0 !important;
+}
+
+.rdp-month_caption {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.rdp-weekday {
+  color: #64748b !important;
+  font-size: 0.8rem !important;
+}
+
+/* Day cells — force light text */
+.rdp-day {
+  color: #cbd5e1 !important;
+}
+
+.rdp-day_button {
+  color: #cbd5e1 !important;
+}
+
+/* Hover */
+.rdp-day:not([aria-selected="true"]):not([aria-disabled="true"]):hover .rdp-day_button,
+.rdp-day_button:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Selected day */
+.rdp-selected .rdp-day_button,
+.rdp-day[aria-selected="true"] .rdp-day_button {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+}
+
+/* Today ring */
+.rdp-today:not(.rdp-selected) .rdp-day_button {
+  font-weight: 700 !important;
+  color: #2563eb !important;
+  outline: 2px solid #2563eb !important;
+  outline-offset: -2px;
+}
+
+/* Disabled */
+.rdp-day[aria-disabled="true"] .rdp-day_button,
+.rdp-disabled .rdp-day_button {
+  color: #334155 !important;
+  opacity: 0.35 !important;
+}
+
+/* Navigation arrows */
+.rdp-chevron {
+  fill: #94a3b8 !important;
+}
+
+.rdp-button_previous:hover,
+.rdp-button_next:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
 }
