@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
-import { Duration, PRICING } from "@/lib/constants";
+import { Duration, PRICING, Location } from "@/lib/constants";
 import { formatTimeDisplay } from "@/lib/slots";
 
 interface BookingFormProps {
@@ -11,6 +11,7 @@ interface BookingFormProps {
   startTime: string;
   endTime: string;
   duration: Duration;
+  location: Location;
   onSubmit: (data: { playerName: string; playerEmail: string; playerPhone: string }) => void;
   loading?: boolean;
 }
@@ -20,6 +21,7 @@ export default function BookingForm({
   startTime,
   endTime,
   duration,
+  location,
   onSubmit,
   loading,
 }: BookingFormProps) {
@@ -34,9 +36,10 @@ export default function BookingForm({
 
   return (
     <div>
-      <div className="mb-4 p-3 bg-blue-600/10 border border-blue-500/20 rounded-lg text-sm">
-        <p className="font-medium text-blue-400">Session Summary</p>
-        <p className="text-slate-300">{date} at {formatTimeDisplay(startTime)} – {formatTimeDisplay(endTime)}</p>
+      <div className="mb-4 p-3 bg-brand-600/10 border border-brand-500/20 rounded-lg text-sm">
+        <p className="font-medium text-brand-400">Session Summary</p>
+        <p className="text-slate-300">{new Date(date + "T00:00:00").toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })} at {formatTimeDisplay(startTime)} – {formatTimeDisplay(endTime)}</p>
+        <p className="text-slate-300">{location.name} — {location.address}</p>
         <p className="text-slate-300">{duration} minutes — <span className="font-semibold text-white">${PRICING[duration]}</span></p>
       </div>
 
