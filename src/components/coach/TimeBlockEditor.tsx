@@ -51,7 +51,7 @@ export default function TimeBlockEditor({ blocks, onChange }: TimeBlockEditorPro
       ))}
       <button
         onClick={addBlock}
-        className="flex items-center gap-1 text-sm text-blue-500 hover:text-blue-400 transition cursor-pointer"
+        className="flex items-center gap-1 text-sm text-brand-500 hover:text-brand-400 transition cursor-pointer"
       >
         <Plus className="w-4 h-4" />
         Add time block

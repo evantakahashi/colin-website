@@ -14,7 +14,7 @@ export default function DayToggle({ weekday, enabled, onToggle }: DayToggleProps
       onClick={() => onToggle(weekday)}
       className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer border ${
         enabled
-          ? "bg-blue-600 text-white border-blue-600"
+          ? "bg-brand-600 text-white border-brand-600"
           : "bg-white/5 text-slate-500 border-white/10 hover:text-slate-300"
       }`}
     >

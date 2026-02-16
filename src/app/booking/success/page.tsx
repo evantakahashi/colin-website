@@ -66,7 +66,7 @@ function BookingSuccessContent() {
     return (
       <div className="min-h-screen pitch-bg flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 text-blue-500 animate-spin mx-auto mb-3" />
+          <Loader2 className="w-8 h-8 text-brand-500 animate-spin mx-auto mb-3" />
           <p className="text-slate-400">Confirming your booking...</p>
         </div>
       </div>
@@ -78,7 +78,7 @@ function BookingSuccessContent() {
       <div className="min-h-screen pitch-bg flex items-center justify-center p-4">
         <div className="bg-[#111a2e] border border-white/10 rounded-xl p-8 max-w-md text-center">
           <p className="text-red-400 mb-4">{error}</p>
-          <a href="/" className="text-blue-500 hover:text-blue-400 transition">
+          <a href="/" className="text-brand-500 hover:text-brand-400 transition">
             Return to home
           </a>
         </div>
@@ -91,7 +91,7 @@ function BookingSuccessContent() {
       <div className="w-full py-12">
         {booking && <ConfirmationCard booking={booking} />}
         <div className="text-center mt-6">
-          <a href="/" className="text-blue-500 hover:text-blue-400 transition text-sm">
+          <a href="/" className="text-brand-500 hover:text-brand-400 transition text-sm">
             Book another session
           </a>
         </div>
@@ -105,7 +105,7 @@ export default function BookingSuccessPage() {
     <Suspense
       fallback={
         <div className="min-h-screen pitch-bg flex items-center justify-center">
-          <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
+          <Loader2 className="w-8 h-8 text-brand-500 animate-spin" />
         </div>
       }
     >

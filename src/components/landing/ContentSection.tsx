@@ -7,24 +7,28 @@ import { motion, useInView } from "framer-motion";
 const TIKTOK_VIDEOS = [
   {
     id: "7252493825250282795",
+    title: "Game-Day Finishing & Surprise Drill",
     caption: "Wait till end for a surprise #soccer #football #ecnl #mlsnext",
     href: "https://www.tiktok.com/@colintakahashi/video/7252493825250282795",
     thumbnail: "/thumbnails/tiktok-1.jpg",
   },
   {
     id: "7561244470696512799",
+    title: "Daily Technical Training Routine",
     caption: "im still tryna learn #soccer #football #drills #mlsnext #japan",
     href: "https://www.tiktok.com/@colintakahashi/video/7561244470696512799",
     thumbnail: "/thumbnails/tiktok-2.jpg",
   },
   {
     id: "7592793193855388959",
+    title: "J-League Inspired Footwork Drills",
     caption: "ao tanaka can have my kids #soccer #football #mlsnext #japan #training",
     href: "https://www.tiktok.com/@colintakahashi/video/7592793193855388959",
     thumbnail: "/thumbnails/tiktok-3.jpg",
   },
   {
     id: "7591591670592949534",
+    title: "1v1 Moves & Ball Mastery Session",
     caption: "dont play w me #soccer #football #drills #training #mlsnext",
     href: "https://www.tiktok.com/@colintakahashi/video/7591591670592949534",
     thumbnail: "/thumbnails/tiktok-4.jpg",
@@ -40,7 +44,7 @@ export default function ContentSection() {
   const ctaInView = useInView(ctaRef, { once: true, margin: "-50px" });
 
   return (
-    <section id="content" className="py-20">
+    <section id="content" className="pt-10 pb-20">
       <div className="max-w-6xl mx-auto px-4">
         {/* Badge */}
         <motion.div
@@ -70,19 +74,8 @@ export default function ContentSection() {
           transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
           className="text-3xl md:text-4xl font-bold text-white text-center mb-4"
         >
-          Inside CT Training
+          Inside CT19 Training
         </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={headingInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-          className="text-slate-400 text-center max-w-2xl mx-auto mb-12"
-        >
-          Drills, footwork, and real sessions — no fluff. Follow along
-          as I put in the work every day and break down what it actually takes
-          to get better on the ball.
-        </motion.p>
-
         {/* Video grid */}
         <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {TIKTOK_VIDEOS.map((video, i) => (
@@ -96,11 +89,12 @@ export default function ContentSection() {
               animate={gridInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
             >
-              <div className="relative aspect-[9/16] rounded-xl overflow-hidden bg-[#111a2e] border border-white/5 group-hover:border-blue-500/30 transition-all">
+              <div className="relative aspect-[9/16] rounded-xl overflow-hidden bg-[#111a2e] border border-white/5 group-hover:border-brand-500/30 group-hover:scale-[1.02] group-hover:shadow-lg group-hover:shadow-brand-500/10 transition-all duration-300">
                 {/* Thumbnail */}
                 <img
                   src={video.thumbnail}
                   alt={video.caption}
+                  loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 {/* Dark overlay for contrast */}
@@ -120,7 +114,7 @@ export default function ContentSection() {
                 </div>
               </div>
               <p className="mt-2 text-sm text-slate-400 group-hover:text-slate-300 transition line-clamp-2">
-                {video.caption}
+                {video.title}
               </p>
             </motion.a>
           ))}

@@ -37,7 +37,7 @@ export default function CoachLoginPage() {
     <div className="min-h-screen pitch-bg flex items-center justify-center p-4">
       <div className="bg-[#111a2e] border border-white/10 rounded-xl p-8 w-full max-w-md">
         <div className="flex items-center justify-center gap-2 mb-6">
-          <Lock className="w-6 h-6 text-blue-500" />
+          <Lock className="w-6 h-6 text-brand-500" />
           <h1 className="text-2xl font-bold text-white">Coach Portal</h1>
         </div>
 
@@ -51,7 +51,7 @@ export default function CoachLoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-2 bg-[#1a2340] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition"
+              className="w-full px-4 py-2 bg-[#1a2340] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:ring-2 focus:ring-brand-600 focus:border-transparent outline-none transition"
               placeholder="coach@example.com"
             />
           </div>
@@ -65,7 +65,7 @@ export default function CoachLoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-2 bg-[#1a2340] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition"
+              className="w-full px-4 py-2 bg-[#1a2340] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:ring-2 focus:ring-brand-600 focus:border-transparent outline-none transition"
               placeholder="••••••••"
             />
           </div>
@@ -77,7 +77,7 @@ export default function CoachLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-medium hover:bg-blue-500 transition disabled:opacity-50 cursor-pointer"
+            className="w-full bg-brand-600 text-white py-2.5 rounded-lg font-medium hover:bg-brand-500 transition disabled:opacity-50 cursor-pointer"
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>

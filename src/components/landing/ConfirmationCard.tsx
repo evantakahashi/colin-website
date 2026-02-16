@@ -1,8 +1,8 @@
 "use client";
 
 import GlassCard from "@/components/ui/GlassCard";
-import { CheckCircle, Smartphone, Mail } from "lucide-react";
-import { VENMO_HANDLE, ZELLE_INFO, LOCATIONS } from "@/lib/constants";
+import { CheckCircle } from "lucide-react";
+import { LOCATIONS } from "@/lib/constants";
 import { Booking } from "@/lib/types";
 import { formatTimeDisplay } from "@/lib/slots";
 import { motion } from "framer-motion";
@@ -59,21 +59,6 @@ export default function ConfirmationCard({ booking }: ConfirmationCardProps) {
           <p className="text-slate-300"><span className="font-medium text-white">Duration:</span> {booking.duration_minutes} min</p>
         </motion.div>
 
-        <motion.div variants={fadeUp} className="border-t border-white/10 pt-4">
-          <p className="text-sm text-slate-500 mb-3">
-            Alternative payment methods (if applicable):
-          </p>
-          <div className="flex flex-col gap-2 text-sm">
-            <div className="flex items-center justify-center gap-2 text-slate-400">
-              <Smartphone className="w-4 h-4" />
-              <span>Venmo: <span className="font-medium text-white">{VENMO_HANDLE}</span></span>
-            </div>
-            <div className="flex items-center justify-center gap-2 text-slate-400">
-              <Mail className="w-4 h-4" />
-              <span>Zelle: <span className="font-medium text-white">{ZELLE_INFO}</span></span>
-            </div>
-          </div>
-        </motion.div>
       </motion.div>
     </GlassCard>
   );

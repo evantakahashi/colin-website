@@ -1,8 +1,13 @@
 "use client";
 
-import { DURATIONS, PRICING, Duration } from "@/lib/constants";
+import { DURATIONS, PRICING, ORIGINAL_PRICING, Duration } from "@/lib/constants";
 import { Clock } from "lucide-react";
 import { motion } from "framer-motion";
+
+const DESCRIPTIONS: Record<Duration, string> = {
+  60: "Focused skill work — perfect for targeted improvement",
+  90: "Extended session — deep dive into technique & game scenarios",
+};
 
 interface DurationSelectorProps {
   selected?: Duration;
@@ -16,19 +21,26 @@ export default function DurationSelector({ selected, onSelect }: DurationSelecto
         <Clock className="w-5 h-5 text-slate-400" />
         Session Length
       </h3>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-col gap-3">
         {DURATIONS.map((d) => (
           <motion.button
             key={d}
             onClick={() => onSelect(d)}
             whileTap={{ scale: 0.95 }}
-            className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 cursor-pointer border ${
+            className={`p-4 rounded-lg text-left transition-all duration-200 cursor-pointer ${
               selected === d
-                ? "bg-blue-600 text-white border-blue-600"
-                : "bg-white/5 text-slate-300 border-white/10 hover:border-blue-500/50 hover:text-white"
+                ? "bg-white ring-2 ring-brand-400"
+                : "bg-brand-600 hover:bg-brand-500"
             }`}
           >
-            {d} min — ${PRICING[d]}
+            <span className={`text-base font-semibold ${selected === d ? "text-brand-600" : "text-white"}`}>
+              {d} min —{" "}
+              <span className="line-through text-red-400 decoration-red-500 decoration-2">${ORIGINAL_PRICING[d]}</span>{" "}
+              <span className="text-green-400">${PRICING[d]}</span>
+            </span>
+            <p className={`text-sm mt-1 ${selected === d ? "text-brand-500/70" : "text-brand-100/70"}`}>
+              {DESCRIPTIONS[d]}
+            </p>
           </motion.button>
         ))}
       </div>

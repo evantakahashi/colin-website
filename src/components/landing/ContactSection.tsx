@@ -44,7 +44,7 @@ export default function ContactSection() {
           className="relative rounded-2xl overflow-hidden mb-14"
         >
           <div className="absolute inset-0 bg-[#111a2e]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-600/10 to-transparent" />
           <div className="relative py-16 px-6 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
               Get in Touch
@@ -64,77 +64,81 @@ export default function ContactSection() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-600/10 border border-blue-500/20 text-blue-400 text-xs font-medium mb-6">
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-brand-600/10 border border-brand-500/20 text-brand-400 text-xs font-medium mb-6">
               Send a Message
             </span>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Name */}
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">
+                <label htmlFor="contact-name" className="block text-sm font-medium text-slate-300 mb-1">
                   Name<span className="text-red-400">*</span>
                 </label>
                 <input
+                  id="contact-name"
                   name="name"
                   required
                   value={form.name}
                   onChange={handleChange}
                   placeholder="Your name"
-                  className="w-full px-4 py-2.5 bg-[#1a2340] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition"
+                  className="w-full px-4 py-2.5 bg-[#1a2340] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:ring-2 focus:ring-brand-600 focus:border-transparent outline-none transition"
                 />
               </div>
 
               {/* Email */}
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">
+                <label htmlFor="contact-email" className="block text-sm font-medium text-slate-300 mb-1">
                   Email<span className="text-red-400">*</span>
                 </label>
                 <input
+                  id="contact-email"
                   name="email"
                   type="email"
                   required
                   value={form.email}
                   onChange={handleChange}
                   placeholder="Your email"
-                  className="w-full px-4 py-2.5 bg-[#1a2340] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition"
+                  className="w-full px-4 py-2.5 bg-[#1a2340] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:ring-2 focus:ring-brand-600 focus:border-transparent outline-none transition"
                 />
               </div>
 
               {/* Phone */}
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">
+                <label htmlFor="contact-phone" className="block text-sm font-medium text-slate-300 mb-1">
                   Phone
                 </label>
                 <input
+                  id="contact-phone"
                   name="phone"
                   type="tel"
                   value={form.phone}
                   onChange={handleChange}
                   placeholder="Your phone number (optional)"
-                  className="w-full px-4 py-2.5 bg-[#1a2340] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition"
+                  className="w-full px-4 py-2.5 bg-[#1a2340] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:ring-2 focus:ring-brand-600 focus:border-transparent outline-none transition"
                 />
               </div>
 
               {/* Message */}
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">
+                <label htmlFor="contact-message" className="block text-sm font-medium text-slate-300 mb-1">
                   Message<span className="text-red-400">*</span>
                 </label>
                 <textarea
+                  id="contact-message"
                   name="message"
                   required
                   rows={5}
                   value={form.message}
                   onChange={handleChange}
                   placeholder="Your message"
-                  className="w-full px-4 py-2.5 bg-[#1a2340] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition resize-none"
+                  className="w-full px-4 py-2.5 bg-[#1a2340] border border-white/10 rounded-lg text-white placeholder-slate-500 focus:ring-2 focus:ring-brand-600 focus:border-transparent outline-none transition resize-none"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="w-full py-3 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-medium rounded-lg transition cursor-pointer"
+                className="w-full py-3 bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white font-medium rounded-lg transition cursor-pointer"
               >
                 {status === "sending"
                   ? "Sending..."
@@ -154,22 +158,22 @@ export default function ContactSection() {
           >
             {/* Contact info card */}
             <div>
-              <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-600/10 border border-blue-500/20 text-blue-400 text-xs font-medium mb-6">
+              <span className="inline-flex items-center px-3 py-1 rounded-full bg-brand-600/10 border border-brand-500/20 text-brand-400 text-xs font-medium mb-6">
                 Contact Information
               </span>
               <div className="bg-[#111a2e] border border-white/10 rounded-xl p-6 space-y-5">
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-blue-500 mt-0.5 shrink-0" />
+                  <MapPin className="w-5 h-5 text-brand-500 mt-0.5 shrink-0" />
                   <div>
                     <p className="text-white text-sm">San Jose, CA</p>
                     <p className="text-slate-500 text-sm">Bay Area</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-blue-500 shrink-0" />
+                  <Phone className="w-5 h-5 text-brand-500 shrink-0" />
                   <a
                     href="tel:+14084999643"
-                    className="text-white text-sm hover:text-blue-400 transition"
+                    className="text-white text-sm hover:text-brand-400 transition"
                   >
                     (408) 499-9643
                   </a>
@@ -179,7 +183,7 @@ export default function ContactSection() {
 
             {/* Follow Us */}
             <div>
-              <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-600/10 border border-blue-500/20 text-blue-400 text-xs font-medium mb-4">
+              <span className="inline-flex items-center px-3 py-1 rounded-full bg-brand-600/10 border border-brand-500/20 text-brand-400 text-xs font-medium mb-4">
                 Follow Us
               </span>
               <div className="flex gap-4">
@@ -188,6 +192,7 @@ export default function ContactSection() {
                   href="https://www.youtube.com/@Colintakahashi"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="YouTube"
                   className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition"
                 >
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -199,6 +204,7 @@ export default function ContactSection() {
                   href="https://www.tiktok.com/@colintakahashi"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="TikTok"
                   className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition"
                 >
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -207,9 +213,10 @@ export default function ContactSection() {
                 </a>
                 {/* Instagram */}
                 <a
-                  href="https://www.instagram.com/colintakahashi19/"
+                  href="https://www.instagram.com/ct19training/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Instagram"
                   className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition"
                 >
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">

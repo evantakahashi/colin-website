@@ -13,7 +13,7 @@ export default function Button({
   const base = "font-medium rounded-lg transition-all duration-200 disabled:opacity-50 cursor-pointer";
 
   const variants = {
-    primary: "bg-blue-600 hover:bg-blue-500 text-white",
+    primary: "bg-brand-600 hover:bg-brand-500 text-white",
     secondary: "bg-white/5 border border-white/10 text-white hover:bg-white/10",
     outline: "border border-white/10 text-slate-300 hover:bg-white/5 hover:text-white",
     danger: "bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20",

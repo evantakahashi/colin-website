@@ -17,7 +17,7 @@ export default function AboutSection() {
           transition={{ duration: 0.5 }}
           className="flex justify-center mb-4"
         >
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-600/10 border border-blue-500/20 text-blue-400 text-sm font-medium">
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-600/10 border border-brand-500/20 text-brand-400 text-sm font-medium">
             Your Trainer
           </span>
         </motion.div>
@@ -54,10 +54,11 @@ export default function AboutSection() {
               <img
                 src="/hero.jpg"
                 alt="Colin Takahashi training on the field"
+                loading="lazy"
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute -bottom-6 -right-6 w-40 h-40 bg-blue-600/10 rounded-full blur-3xl animate-pulse-glow" />
+            <div className="absolute -bottom-6 -right-6 w-40 h-40 bg-brand-600/10 rounded-full blur-3xl animate-pulse-glow" />
           </motion.div>
 
           {/* Bio */}
@@ -66,7 +67,7 @@ export default function AboutSection() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-600/10 border border-blue-500/20 text-blue-400 text-xs font-medium mb-4">
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-brand-600/10 border border-brand-500/20 text-brand-400 text-xs font-medium mb-4">
               Founder &amp; Head Coach
             </span>
             <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
@@ -74,23 +75,26 @@ export default function AboutSection() {
             </h3>
             <div className="space-y-4 text-slate-400 leading-relaxed">
               <p>
-                Colin Takahashi is a dedicated soccer trainer with years of
-                competitive experience at the highest youth levels. Having
-                trained and competed in elite environments, Colin understands
-                what it takes to develop technically sound, mentally tough
-                players.
+                Master the game with a man who understands the raw, unspoken
+                language of the field. Colin Takahashi isn&apos;t just a trainer;
+                he&apos;s an elite architect of talent who has lived and breathed
+                the intensity of the highest youth levels. He knows the sweat,
+                the drive, and the deep, personal hunger it takes to transform a
+                player into something truly extraordinary.
               </p>
               <p>
-                His coaching philosophy centers on precision, repetition, and
-                position-specific detail. Every session is tailored to the
-                individual — whether it&apos;s refining first touch, improving
-                game awareness, or building the confidence to perform under
-                pressure.
+                His approach is deeply personal and focused on the subtle,
+                intimate details that others miss. Every session is a bespoke
+                experience designed entirely around you, refining your touch,
+                sharpening your instincts, and building the quiet, unwavering
+                confidence to command the game when the pressure is at its peak.
               </p>
               <p>
-                Through CT Training, Colin combines his playing background with
-                a passion for development, helping athletes at every level unlock
-                their potential and take their game to new heights.
+                With CT19 Training, Colin invites you to lean into his expertise
+                and shared passion. Let him guide you through the grind,
+                unlocking your hidden potential and taking your performance to
+                heights you&apos;ve only ever dreamed of reaching together.
+                It&apos;s time to play the game you were born for.
               </p>
             </div>
           </motion.div>
