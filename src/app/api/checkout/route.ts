@@ -8,7 +8,7 @@ import { AvailabilityRow, Booking } from "@/lib/types";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { playerName, playerEmail, playerPhone, date, startTime, endTime, duration } = body;
+    const { playerName, playerEmail, playerPhone, date, startTime, endTime, duration, location } = body;
 
     if (!playerName || !playerEmail || !playerPhone || !date || !startTime || !endTime || !duration) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -63,6 +63,7 @@ export async function POST(request: NextRequest) {
         start_time: startTime,
         end_time: endTime,
         duration_minutes: duration,
+        location: location || null,
         status: "pending",
       })
       .select()
@@ -81,7 +82,7 @@ export async function POST(request: NextRequest) {
             currency: "usd",
             product_data: {
               name: `Soccer Training - ${duration} min`,
-              description: `${date} at ${startTime} (Pacific)`,
+              description: `${date} at ${startTime} (Pacific)${location ? ` — ${location}` : ""}`,
             },
             unit_amount: price * 100,
           },
