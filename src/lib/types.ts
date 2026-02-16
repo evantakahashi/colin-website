@@ -7,6 +7,7 @@ export interface Booking {
   start_time: string; // HH:MM
   end_time: string; // HH:MM
   duration_minutes: number;
+  location: string | null;
   status: "pending" | "confirmed" | "cancelled";
   stripe_session_id: string | null;
   created_at: string;
@@ -34,4 +35,4 @@ export interface BookingFormData {
   playerPhone: string;
 }
 
-export type BookingStep = "date" | "duration" | "time" | "form";
+export type BookingStep = "date" | "location" | "duration" | "time" | "form";
