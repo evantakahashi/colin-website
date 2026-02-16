@@ -24,11 +24,16 @@ export default function ContactSection() {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("sending");
-    // TODO: wire up to an API route or email service
-    await new Promise((r) => setTimeout(r, 1000));
+
+    const subject = encodeURIComponent(`CT19 Contact: ${form.name}`);
+    const body = encodeURIComponent(
+      `${form.message}${form.phone ? `\n\nPhone: ${form.phone}` : ""}\n\nFrom: ${form.name} (${form.email})`
+    );
+    window.location.href = `mailto:colin19takahashi@gmail.com?subject=${subject}&body=${body}`;
+
     setStatus("sent");
     setForm({ name: "", email: "", phone: "", message: "" });
   }
@@ -141,9 +146,9 @@ export default function ContactSection() {
                 className="w-full py-3 bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white font-medium rounded-lg transition cursor-pointer"
               >
                 {status === "sending"
-                  ? "Sending..."
+                  ? "Opening email client..."
                   : status === "sent"
-                    ? "Message Sent!"
+                    ? "Email client opened!"
                     : "Send Message"}
               </button>
             </form>
