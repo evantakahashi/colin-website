@@ -2,7 +2,7 @@
 
 import GlassCard from "@/components/ui/GlassCard";
 import { CheckCircle, Smartphone, Mail } from "lucide-react";
-import { VENMO_HANDLE, ZELLE_INFO } from "@/lib/constants";
+import { VENMO_HANDLE, ZELLE_INFO, LOCATIONS } from "@/lib/constants";
 import { Booking } from "@/lib/types";
 import { formatTimeDisplay } from "@/lib/slots";
 import { motion } from "framer-motion";
@@ -45,7 +45,13 @@ export default function ConfirmationCard({ booking }: ConfirmationCardProps) {
           className="bg-white/5 border border-white/10 rounded-lg p-4 mb-6 text-left space-y-1 text-sm"
         >
           <p className="text-slate-300"><span className="font-medium text-white">Name:</span> {booking.player_name}</p>
-          <p className="text-slate-300"><span className="font-medium text-white">Date:</span> {booking.date}</p>
+          <p className="text-slate-300"><span className="font-medium text-white">Date:</span> {new Date(booking.date + "T00:00:00").toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
+          {booking.location && (() => {
+            const loc = LOCATIONS.find(l => l.id === booking.location);
+            return loc ? (
+              <p className="text-slate-300"><span className="font-medium text-white">Location:</span> {loc.name} — {loc.address}</p>
+            ) : null;
+          })()}
           <p className="text-slate-300">
             <span className="font-medium text-white">Time:</span>{" "}
             {formatTimeDisplay(booking.start_time)} – {formatTimeDisplay(booking.end_time)} (Pacific)
