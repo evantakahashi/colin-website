@@ -52,8 +52,8 @@ export default function Navbar() {
       >
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
-          <a href="/" onClick={handleLogoClick} className="select-none shrink-0">
-            <img src="/logo.png" alt="CT19 Training" className="h-10 w-auto" />
+          <a href="/" onClick={handleLogoClick} className="text-xl font-bold text-white tracking-tight select-none">
+            CT19 <span className="text-brand-400">Training</span>
           </a>
 
           {/* Desktop links */}

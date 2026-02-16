@@ -11,7 +11,7 @@
   --color-brand-100: #B8E4FF;
   --color-surface: #111a2e;
   --color-surface-light: #1a2340;
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-montserrat);
 }
 
 @layer base {
@@ -21,7 +21,7 @@
   body {
     background: #0b1120;
     color: #ffffff;
-    font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+    font-family: var(--font-montserrat), 'Montserrat', sans-serif;
   }
 }
 
@@ -132,8 +132,8 @@
 /* Disabled */
 .rdp-day[aria-disabled="true"] .rdp-day_button,
 .rdp-disabled .rdp-day_button {
-  color: #334155 !important;
-  opacity: 0.2 !important;
+  color: #64748b !important;
+  opacity: 1 !important;
   cursor: not-allowed !important;
 }
 

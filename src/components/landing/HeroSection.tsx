@@ -49,8 +49,7 @@ export default function HeroSection() {
             variants={fadeIn}
             className="text-lg text-slate-400 max-w-lg mb-8"
           >
-            Private soccer training sessions designed to elevate your game.
-            Expert coaching, personalized programs, and proven results.
+            Elevate your game with a trainer who understands your drive.
           </motion.p>
 
           <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
@@ -70,15 +69,13 @@ export default function HeroSection() {
           </motion.div>
 
           {/* Mobile hero image */}
-          <motion.div variants={fadeIn} className="mt-8 md:hidden">
-            <div className="aspect-[16/9] rounded-xl overflow-hidden border border-white/5">
-              <img
-                src="/hero.jpg"
-                alt="Soccer player at NorCal Premier Soccer showcase"
-                loading="lazy"
-                className="w-full h-full object-cover"
-              />
-            </div>
+          <motion.div variants={fadeIn} className="mt-8 md:hidden flex justify-center">
+            <img
+              src="/logo.png"
+              alt="CT19 Training logo"
+              loading="lazy"
+              className="w-48 h-48 rounded-full object-cover drop-shadow-[0_0_30px_rgba(13,94,175,0.3)]"
+            />
           </motion.div>
         </motion.div>
 
@@ -89,12 +86,12 @@ export default function HeroSection() {
           animate="show"
           className="hidden md:block relative"
         >
-          <div className="aspect-[4/3] rounded-2xl overflow-hidden border border-white/5">
+          <div className="flex items-center justify-center">
             <img
-              src="/hero.jpg"
-              alt="Soccer player at NorCal Premier Soccer showcase"
+              src="/logo.png"
+              alt="CT19 Training logo"
               loading="lazy"
-              className="w-full h-full object-cover"
+              className="w-80 h-80 rounded-full object-cover drop-shadow-[0_0_40px_rgba(13,94,175,0.3)]"
             />
           </div>
           {/* Decorative glow */}
