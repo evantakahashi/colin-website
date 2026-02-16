@@ -5,11 +5,13 @@ import { useBookingFlow } from "@/hooks/useBookingFlow";
 import CalendarPicker from "./CalendarPicker";
 import DurationSelector from "./DurationSelector";
 import TimeSlotGrid from "./TimeSlotGrid";
+import LocationSelector from "./LocationSelector";
 import BookingForm from "./BookingForm";
 import GlassCard from "@/components/ui/GlassCard";
 import { AvailabilityRow, TimeSlot } from "@/lib/types";
-import { TIMEZONE } from "@/lib/constants";
-import { ChevronLeft } from "lucide-react";
+import { TIMEZONE, LOCATIONS } from "@/lib/constants";
+import { formatTimeDisplay } from "@/lib/slots";
+import { ChevronLeft, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const stepVariants = {
@@ -22,10 +24,12 @@ export default function BookingFlow() {
   const {
     step,
     selectedDate,
+    selectedLocation,
     selectedDuration,
     selectedTime,
     goToStep,
     selectDate,
+    selectLocation,
     selectDuration,
     selectTime,
     reset,
@@ -121,6 +125,7 @@ export default function BookingFlow() {
           startTime: selectedTime,
           endTime,
           duration: selectedDuration,
+          location: selectedLocation?.id,
         }),
       });
 
@@ -139,7 +144,7 @@ export default function BookingFlow() {
     }
   }
 
-  function renderBackButton(targetStep: "date" | "duration" | "time") {
+  function renderBackButton(targetStep: "date" | "location" | "duration" | "time") {
     return (
       <button
         onClick={() => goToStep(targetStep)}
@@ -151,42 +156,64 @@ export default function BookingFlow() {
     );
   }
 
-  const steps = ["date", "duration", "time", "form"] as const;
+  const steps = ["date", "location", "duration", "time", "form"] as const;
+  const stepLabels = ["Date", "Location", "Length", "Time", "Book"] as const;
   const stepIndex = steps.indexOf(step);
 
+  const progressBar = (
+    <div className="flex bg-[#0a0f1e]">
+      {steps.map((s, i) => (
+        <div
+          key={s}
+          className={`flex-1 flex items-center justify-center gap-1.5 py-3 text-sm font-[family-name:var(--font-montserrat)] font-bold uppercase tracking-wide transition-colors border-b-2 ${
+            step === s
+              ? "text-white border-brand-500"
+              : stepIndex > i
+                ? "text-brand-400 border-transparent"
+                : "text-slate-500 border-transparent"
+          }`}
+        >
+          {stepIndex > i && <Check className="w-4 h-4" />}
+          {stepLabels[i]}
+        </div>
+      ))}
+    </div>
+  );
+
   return (
-    <GlassCard className="max-w-2xl mx-auto">
-      {/* Step indicators */}
-      <div className="flex items-center justify-center gap-2 mb-6">
-        {steps.map((s, i) => (
-          <div key={s} className="flex items-center gap-2">
-            <motion.div
-              animate={step === s ? { scale: [1, 1.15, 1] } : { scale: 1 }}
-              transition={step === s ? { duration: 0.3 } : {}}
-              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all ${
-                step === s
-                  ? "bg-blue-600 text-white"
-                  : (stepIndex > i
-                    ? "bg-blue-600/20 text-blue-400"
-                    : "bg-white/5 text-slate-500")
-              }`}
-            >
-              {i + 1}
-            </motion.div>
-            {i < 3 && (
-              <div className={`w-8 h-0.5 ${
-                stepIndex > i
-                  ? "bg-blue-600/30"
-                  : "bg-white/10"
-              }`} />
-            )}
-          </div>
-        ))}
-      </div>
+    <GlassCard className="max-w-3xl mx-auto min-h-[480px]" topBar={progressBar}>
 
       {error && (
         <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 text-red-400 rounded-lg text-sm">
           {error}
+        </div>
+      )}
+
+      {(selectedDate || selectedDuration || selectedTime) && step !== "date" && (
+        <div className="mb-4 flex flex-wrap items-center gap-2 text-sm text-slate-400">
+          {selectedDate && (
+            <span className="px-2 py-0.5 bg-white/5 rounded text-slate-300">
+              {selectedDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: TIMEZONE })}
+            </span>
+          )}
+          {selectedLocation && (
+            <>
+              <span>→</span>
+              <span className="px-2 py-0.5 bg-white/5 rounded text-slate-300">{selectedLocation.name}</span>
+            </>
+          )}
+          {selectedDuration && (
+            <>
+              <span>→</span>
+              <span className="px-2 py-0.5 bg-white/5 rounded text-slate-300">{selectedDuration} min</span>
+            </>
+          )}
+          {selectedTime && (
+            <>
+              <span>→</span>
+              <span className="px-2 py-0.5 bg-white/5 rounded text-slate-300">{formatTimeDisplay(selectedTime)}</span>
+            </>
+          )}
         </div>
       )}
 
@@ -211,6 +238,20 @@ export default function BookingFlow() {
           </motion.div>
         )}
 
+        {step === "location" && (
+          <motion.div
+            key="location"
+            variants={stepVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.25, ease: "easeOut" }}
+          >
+            {renderBackButton("date")}
+            <LocationSelector selected={selectedLocation} onSelect={selectLocation} />
+          </motion.div>
+        )}
+
         {step === "duration" && (
           <motion.div
             key="duration"
@@ -220,7 +261,7 @@ export default function BookingFlow() {
             exit="exit"
             transition={{ duration: 0.25, ease: "easeOut" }}
           >
-            {renderBackButton("date")}
+            {renderBackButton("location")}
             <DurationSelector selected={selectedDuration} onSelect={selectDuration} />
           </motion.div>
         )}
@@ -259,6 +300,7 @@ export default function BookingFlow() {
               startTime={selectedTime!}
               endTime={endTime}
               duration={selectedDuration!}
+              location={selectedLocation!}
               onSubmit={handleCheckout}
               loading={checkoutLoading}
             />
