@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { BookingStep } from "@/lib/types";
-import { Duration } from "@/lib/constants";
+import { Duration, Location } from "@/lib/constants";
 
 export function useBookingFlow() {
   const [step, setStep] = useState<BookingStep>("date");
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+  const [selectedLocation, setSelectedLocation] = useState<Location | undefined>();
   const [selectedDuration, setSelectedDuration] = useState<Duration | undefined>();
   const [selectedTime, setSelectedTime] = useState<string | undefined>();
 
@@ -16,6 +17,11 @@ export function useBookingFlow() {
 
   function selectDate(date: Date) {
     setSelectedDate(date);
+    setStep("location");
+  }
+
+  function selectLocation(location: Location) {
+    setSelectedLocation(location);
     setStep("duration");
   }
 
@@ -32,6 +38,7 @@ export function useBookingFlow() {
   function reset() {
     setStep("date");
     setSelectedDate(undefined);
+    setSelectedLocation(undefined);
     setSelectedDuration(undefined);
     setSelectedTime(undefined);
   }
@@ -39,10 +46,12 @@ export function useBookingFlow() {
   return {
     step,
     selectedDate,
+    selectedLocation,
     selectedDuration,
     selectedTime,
     goToStep,
     selectDate,
+    selectLocation,
     selectDuration,
     selectTime,
     reset,
