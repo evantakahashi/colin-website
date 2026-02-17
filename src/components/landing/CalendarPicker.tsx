@@ -16,10 +16,14 @@ export default function CalendarPicker({
   onSelect,
   disabledDays = [],
 }: CalendarPickerProps) {
-  const [today, setToday] = useState<Date>(new Date());
+  const [today, setToday] = useState<Date>(() => {
+    // Initialize to midnight to avoid time-of-day comparison issues
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  });
 
   useEffect(() => {
-    // Get "today" in Pacific time
+    // Correct to Pacific midnight after hydration
     const now = new Date();
     const pacificStr = now.toLocaleDateString("en-CA", { timeZone: TIMEZONE });
     setToday(new Date(pacificStr + "T00:00:00"));
