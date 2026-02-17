@@ -47,10 +47,7 @@ export default function RecentBookings() {
 
   if (loading) return <p className="text-slate-500">Loading bookings...</p>;
 
-  const isStale = (b: Booking) =>
-    b.status === "pending" && Date.now() - new Date(b.created_at).getTime() > 15 * 60 * 1000;
-
-  const activeBookings = bookings.filter((b) => b.status !== "cancelled" && !isStale(b));
+  const activeBookings = bookings.filter((b) => b.status === "confirmed");
   const cancelledBookings = bookings.filter((b) => b.status === "cancelled");
 
   return (
