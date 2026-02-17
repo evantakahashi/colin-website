@@ -24,18 +24,22 @@ export default function ContactSection() {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("sending");
 
-    const subject = encodeURIComponent(`CT19 Contact: ${form.name}`);
-    const body = encodeURIComponent(
-      `${form.message}${form.phone ? `\n\nPhone: ${form.phone}` : ""}\n\nFrom: ${form.name} (${form.email})`
-    );
-    window.location.href = `mailto:colin19takahashi@gmail.com?subject=${subject}&body=${body}`;
-
-    setStatus("sent");
-    setForm({ name: "", email: "", phone: "", message: "" });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error();
+      setStatus("sent");
+      setForm({ name: "", email: "", phone: "", message: "" });
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
@@ -146,10 +150,12 @@ export default function ContactSection() {
                 className="w-full py-3 bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white font-medium rounded-lg transition cursor-pointer"
               >
                 {status === "sending"
-                  ? "Opening email client..."
+                  ? "Sending..."
                   : status === "sent"
-                    ? "Email client opened!"
-                    : "Send Message"}
+                    ? "Message Sent!"
+                    : status === "error"
+                      ? "Failed — try again"
+                      : "Send Message"}
               </button>
             </form>
           </motion.div>

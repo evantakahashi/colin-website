@@ -1,13 +1,18 @@
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 interface EmailParams {
   to: string;
   subject: string;
   body: string;
 }
 
-export function sendEmail({ to, subject, body }: EmailParams) {
-  console.log("=== MOCK EMAIL ===");
-  console.log(`To: ${to}`);
-  console.log(`Subject: ${subject}`);
-  console.log(`Body: ${body}`);
-  console.log("==================");
+export async function sendEmail({ to, subject, body }: EmailParams) {
+  await resend.emails.send({
+    from: "CT19 Training <noreply@ct19training.com>",
+    to,
+    subject,
+    text: body,
+  });
 }

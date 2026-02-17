@@ -23,8 +23,6 @@ export const LOCATIONS: Location[] = [
   { id: "union-ms", name: "Union Middle School", address: "2130 Los Gatos Almaden Rd, San Jose, CA 95124" },
 ];
 
-export const VENMO_HANDLE = "@your-handle";
-export const ZELLE_INFO = "your@email.com";
 
 export const WEEKDAY_LABELS = [
   "Sunday",

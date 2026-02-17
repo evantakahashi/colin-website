@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
         .single();
 
       if (booking) {
-        sendEmail({
+        await sendEmail({
           to: booking.player_email,
           subject: "Booking Confirmed!",
           body: `Hi ${booking.player_name}, your ${booking.duration_minutes}-min session on ${booking.date} at ${booking.start_time} is confirmed.`,
