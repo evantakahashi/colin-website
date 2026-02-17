@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { MapPin, Phone } from "lucide-react";
+import { MapPin, Mail } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 
 export default function ContactSection() {
@@ -181,12 +181,12 @@ export default function ContactSection() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-brand-500 shrink-0" />
+                  <Mail className="w-5 h-5 text-brand-500 shrink-0" />
                   <a
-                    href="tel:+14084999643"
+                    href="mailto:colin19takahashi@gmail.com"
                     className="text-white text-sm hover:text-brand-400 transition"
                   >
-                    (408) 499-9643
+                    colin19takahashi@gmail.com
                   </a>
                 </div>
               </div>
@@ -195,7 +195,7 @@ export default function ContactSection() {
             {/* Follow Us */}
             <div>
               <span className="inline-flex items-center px-3 py-1 rounded-full bg-brand-600/10 border border-brand-500/20 text-brand-400 text-xs font-medium mb-4">
-                Follow Us
+                Follow Me
               </span>
               <div className="flex gap-4">
                 {/* YouTube */}
