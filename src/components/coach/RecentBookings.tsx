@@ -48,7 +48,6 @@ export default function RecentBookings() {
   if (loading) return <p className="text-slate-500">Loading bookings...</p>;
 
   const activeBookings = bookings.filter((b) => b.status === "confirmed");
-  const cancelledBookings = bookings.filter((b) => b.status === "cancelled");
 
   return (
     <div>
@@ -57,11 +56,11 @@ export default function RecentBookings() {
         Bookings
       </h3>
 
-      {bookings.length === 0 ? (
+      {activeBookings.length === 0 ? (
         <p className="text-slate-500 text-sm">No bookings yet.</p>
       ) : (
         <div className="space-y-2">
-          {[...activeBookings, ...cancelledBookings].map((b) => (
+          {activeBookings.map((b) => (
             <div
               key={b.id}
               className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/10"
