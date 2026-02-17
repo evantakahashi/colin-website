@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { createServiceClient } from "@/lib/supabase-server";
-import { sendEmail } from "@/lib/email";
+import { sendEmail, bookingConfirmationHtml } from "@/lib/email";
 
 export async function POST(request: NextRequest) {
   const body = await request.text();
@@ -35,10 +35,21 @@ export async function POST(request: NextRequest) {
         .single();
 
       if (booking) {
+        const price = booking.duration_minutes === 60 ? "$50" : "$75";
+        const html = bookingConfirmationHtml({
+          playerName: booking.player_name,
+          date: booking.date,
+          startTime: booking.start_time,
+          endTime: booking.end_time,
+          duration: booking.duration_minutes,
+          price,
+          location: booking.location || undefined,
+        });
         await sendEmail({
           to: booking.player_email,
-          subject: "Booking Confirmed!",
+          subject: "Your CT19 Training Session is Confirmed!",
           body: `Hi ${booking.player_name}, your ${booking.duration_minutes}-min session on ${booking.date} at ${booking.start_time} is confirmed.`,
+          html,
         });
       }
     }

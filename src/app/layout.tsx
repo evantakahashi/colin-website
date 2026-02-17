@@ -8,7 +8,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Soccer Training | Book Your Session",
+  title: "CT19 Training | Book Your Session",
   description: "Book private soccer training sessions with a professional coach",
 };
 
