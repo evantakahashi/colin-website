@@ -1,3 +1,4 @@
+import LaunchBanner from "@/components/landing/LaunchBanner";
 import Navbar from "@/components/landing/Navbar";
 import HeroSection from "@/components/landing/HeroSection";
 import ContentSection from "@/components/landing/ContentSection";
@@ -7,6 +8,7 @@ import AnimateOnScroll from "@/components/landing/AnimateOnScroll";
 export default function Home() {
   return (
     <main id="main" className="min-h-screen pitch-bg">
+      <LaunchBanner />
       <Navbar />
       <HeroSection />
       <ContentSection />
