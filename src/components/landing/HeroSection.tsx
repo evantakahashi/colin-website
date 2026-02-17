@@ -34,7 +34,7 @@ export default function HeroSection() {
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-600/10 border border-brand-500/20 text-brand-400 text-sm font-medium mb-6"
           >
             <Trophy className="w-4 h-4" />
-            Elite Player Development
+            Premier Player Development
           </motion.div>
 
           <motion.h1
