@@ -45,12 +45,19 @@ export async function POST(request: NextRequest) {
           price,
           location: booking.location || undefined,
         });
-        await sendEmail({
-          to: booking.player_email,
-          subject: "Your CT19 Training Session is Confirmed!",
-          body: `Hi ${booking.player_name}, your ${booking.duration_minutes}-min session on ${booking.date} at ${booking.start_time} is confirmed.`,
-          html,
-        });
+        await Promise.all([
+          sendEmail({
+            to: booking.player_email,
+            subject: "Your CT19 Training Session is Confirmed!",
+            body: `Hi ${booking.player_name}, your ${booking.duration_minutes}-min session on ${booking.date} at ${booking.start_time} is confirmed.`,
+            html,
+          }),
+          sendEmail({
+            to: "colin19takahashi@gmail.com",
+            subject: `New Booking: ${booking.player_name} — ${booking.date}`,
+            body: `New booking confirmed!\n\nPlayer: ${booking.player_name}\nEmail: ${booking.player_email}\nPhone: ${booking.player_phone}\nDate: ${booking.date}\nTime: ${booking.start_time} – ${booking.end_time}\nDuration: ${booking.duration_minutes} min\nPaid: ${price}${booking.location ? `\nLocation: ${booking.location}` : ""}`,
+          }),
+        ]);
       }
     }
   }
