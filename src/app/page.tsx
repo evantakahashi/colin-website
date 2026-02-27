@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import LaunchBanner from "@/components/landing/LaunchBanner";
 import Navbar from "@/components/landing/Navbar";
 import HeroSection from "@/components/landing/HeroSection";

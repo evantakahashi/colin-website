@@ -52,6 +52,7 @@ export default function CalendarPicker({
         onSelect={(date) => date && onSelect(date)}
         disabled={disabledMatcher}
         fromDate={today}
+        today={today}
       />
     </div>
   );
