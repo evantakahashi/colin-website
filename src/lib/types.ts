@@ -10,6 +10,9 @@ export interface Booking {
   location: string | null;
   status: "pending" | "confirmed" | "cancelled";
   stripe_session_id: string | null;
+  cancelled_at: string | null;
+  cancellation_message: string | null;
+  refund_id: string | null;
   created_at: string;
 }
 

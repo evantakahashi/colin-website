@@ -12,6 +12,9 @@ create table bookings (
   duration_minutes int not null,
   status text not null default 'pending',
   stripe_session_id text,
+  cancelled_at timestamptz,
+  cancellation_message text,
+  refund_id text,
   created_at timestamptz default now()
 );
 
