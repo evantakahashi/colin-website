@@ -3,7 +3,8 @@ import { Booking } from "@/lib/types";
 export const GRACE_PERIOD_DAYS = 7;
 
 export function sessionEndMs(booking: Pick<Booking, "date" | "end_time">): number {
-  return new Date(`${booking.date}T${booking.end_time}:00`).getTime();
+  const [h, m] = booking.end_time.split(":");
+  return new Date(`${booking.date}T${h.padStart(2, "0")}:${m.padStart(2, "0")}:00`).getTime();
 }
 
 export function isWithinCancellationWindow(
