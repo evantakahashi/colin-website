@@ -114,3 +114,92 @@ export function bookingConfirmationHtml({
 </body>
 </html>`.trim();
 }
+
+export function bookingCancellationHtml({
+  playerName,
+  date,
+  startTime,
+  endTime,
+  duration,
+  refundAmount,
+  coachMessage,
+}: {
+  playerName: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  duration: number;
+  refundAmount: string;
+  coachMessage?: string | null;
+}) {
+  const messageBlock = coachMessage && coachMessage.trim().length > 0
+    ? `<div style="background:#fef3c7;border-left:4px solid #f59e0b;border-radius:6px;padding:16px;margin:0 0 24px;">
+        <p style="margin:0 0 6px;color:#78350f;font-size:13px;font-weight:600;">Message from your coach</p>
+        <p style="margin:0;color:#78350f;font-size:14px;white-space:pre-wrap;">${escapeHtml(coachMessage)}</p>
+      </div>`
+    : `<p style="margin:0 0 24px;color:#64748b;font-size:15px;">Unfortunately we need to cancel this session.</p>`;
+
+  return `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body style="margin:0;padding:0;background:#f4f4f5;font-family:Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f5;padding:32px 0;">
+    <tr><td align="center">
+      <table width="520" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;">
+        <tr>
+          <td style="background:#0f172a;padding:24px;text-align:center;">
+            <img src="${BASE_URL}/logo.png" alt="CT19 Training" width="120" style="display:block;margin:0 auto;" />
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:32px 28px;">
+            <h1 style="margin:0 0 8px;font-size:22px;color:#0f172a;">Session Cancelled</h1>
+            <p style="margin:0 0 20px;color:#64748b;font-size:15px;">Hi ${escapeHtml(playerName)}, your training session has been cancelled.</p>
+            ${messageBlock}
+            <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fafc;border-radius:8px;padding:20px;margin-bottom:24px;">
+              <tr><td style="padding:20px;">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="padding:6px 0;color:#64748b;font-size:14px;width:140px;">Original date</td>
+                    <td style="padding:6px 0;color:#0f172a;font-size:14px;font-weight:600;">${formatDate(date)}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:6px 0;color:#64748b;font-size:14px;">Original time</td>
+                    <td style="padding:6px 0;color:#0f172a;font-size:14px;font-weight:600;">${to12h(startTime)} – ${to12h(endTime)} (Pacific)</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:6px 0;color:#64748b;font-size:14px;">Duration</td>
+                    <td style="padding:6px 0;color:#0f172a;font-size:14px;font-weight:600;">${duration} minutes</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:6px 0;color:#64748b;font-size:14px;">Refund</td>
+                    <td style="padding:6px 0;color:#0f172a;font-size:14px;font-weight:600;">${refundAmount}</td>
+                  </tr>
+                </table>
+              </td></tr>
+            </table>
+            <p style="margin:0 0 4px;color:#64748b;font-size:13px;">Your refund will appear in your account in 5–10 business days.</p>
+            <p style="margin:0;color:#64748b;font-size:13px;">Questions? Call <a href="tel:+14084999643" style="color:#2563eb;">(408) 499-9643</a> or email <a href="mailto:colin19takahashi@gmail.com" style="color:#2563eb;">colin19takahashi@gmail.com</a></p>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#f8fafc;padding:16px 28px;text-align:center;border-top:1px solid #e2e8f0;">
+            <p style="margin:0;color:#94a3b8;font-size:12px;">CT19 Training — San Jose, CA</p>
+          </td>
+        </tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`.trim();
+}
+
+function escapeHtml(s: string) {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
