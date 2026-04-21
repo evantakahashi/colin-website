@@ -9,15 +9,17 @@ interface EmailParams {
   subject: string;
   body: string;
   html?: string;
+  bcc?: string | string[];
 }
 
-export async function sendEmail({ to, subject, body, html }: EmailParams) {
+export async function sendEmail({ to, subject, body, html, bcc }: EmailParams) {
   await resend.emails.send({
     from: "CT19 Training <noreply@ct19training.com>",
     to,
     subject,
     text: body,
     ...(html && { html }),
+    ...(bcc && { bcc }),
   });
 }
 
