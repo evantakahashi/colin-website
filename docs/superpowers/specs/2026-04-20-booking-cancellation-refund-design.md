@@ -19,7 +19,6 @@ Refund must succeed for the cancellation to go through. If the refund fails, not
 - Partial refunds, cancellation fees, late-cancel policies.
 - Rescheduling flow.
 - Client-initiated cancellation.
-- Preventing cancel on past-dated bookings (coach judgment for now).
 - Background/async refund processing.
 
 ## Architecture
@@ -35,6 +34,7 @@ Coach clicks X on booking
   → PATCH /api/bookings { id, status: "cancelled", cancellationMessage? }
       → Auth check (existing)
       → Load booking, verify status === "confirmed" and stripe_session_id is set
+      → Verify session end datetime is within 7 days of now (grace period)
       → stripe.checkout.sessions.retrieve(stripe_session_id) → payment_intent
       → stripe.refunds.create({ payment_intent }) → refund.id
       → UPDATE bookings SET status, cancelled_at, cancellation_message, refund_id
@@ -48,6 +48,7 @@ Coach clicks X on booking
 | Condition | Behavior |
 |---|---|
 | Booking not found / wrong status | 404 / 400, no changes |
+| Session ended more than 7 days ago (grace period expired) | 400 "This session is outside the cancellation window", no changes |
 | `stripe_session_id` is null (legacy row) | 400 "No payment record found — contact admin", no changes |
 | Stripe session retrieval fails | 500, no changes, coach sees error |
 | Stripe refund fails | 500, no changes, coach sees error |
@@ -69,7 +70,7 @@ Expanded to do the full cancellation flow. Input: `{ id: string, status: "cancel
 
 ### `src/lib/email.ts`
 
-Add `bookingCancellationHtml({ playerName, date, startTime, endTime, duration, refundAmount, coachMessage? })` following the same template pattern as `bookingConfirmationHtml`. Email includes:
+Extend `sendEmail` params to accept an optional `bcc?: string | string[]`. Add `bookingCancellationHtml({ playerName, date, startTime, endTime, duration, refundAmount, coachMessage? })` following the same template pattern as `bookingConfirmationHtml`. The cancellation send path passes `bcc: process.env.COACH_EMAIL`. Email includes:
 
 - Subject: `Your CT19 training on [date] was cancelled`
 - Original session details (date, time, duration)
@@ -87,6 +88,8 @@ Replace the `confirm()` call with a small modal:
 - Show an error toast/inline message if the request fails
 - On success, refresh the list
 
+Hide the X cancel button for any booking whose session end is more than 7 days in the past. Server-side check in the PATCH handler is still the source of truth — the UI hide is purely cosmetic.
+
 ## Data flow
 
 1. Modal submits `{ id, cancellationMessage }` to PATCH handler.
@@ -99,13 +102,15 @@ Replace the `confirm()` call with a small modal:
 - Manual: full happy path (confirmed booking → cancel with message → client gets email → Stripe dashboard shows refund → booking row has all three new columns populated).
 - Manual: skip message path.
 - Manual: legacy booking with null `stripe_session_id` → coach sees block.
+- Manual: booking with session end > 7 days ago → cancel button hidden; direct PATCH returns 400.
+- Manual: booking with session end < 7 days ago but already passed → cancel still works (inside grace window).
 - Manual: trigger refund failure (use Stripe test card that errors on refund, or manually invalidate session) → verify booking stays confirmed.
+- Manual: confirm coach receives BCC of cancellation email.
 
 ## Security / Auth
 
 No changes. Existing cookie-based coach auth on the PATCH endpoint is sufficient. Service client continues to be used for the DB write.
 
-## Open questions
+## Config
 
-- Should the cancellation email BCC the coach's address for their records? (Assume **no** for now.)
-- Should we block cancellation for past-dated bookings after some grace period? (Assume **no** for now — coach judgment.)
+New env var: `COACH_EMAIL` — BCC recipient for cancellation emails. Must be set before this feature ships.
